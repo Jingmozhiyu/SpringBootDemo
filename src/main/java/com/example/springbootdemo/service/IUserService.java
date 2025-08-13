@@ -7,29 +7,30 @@ public interface IUserService {
     /**
      * Insert users
      *
-     * @param user
-     * @return
+     * @param user user
+     * @return new user
      */
     User add(UserDto user);
 
     /**
      * Inquire users
-     * @param userId
-     * @return
+     * @param userId userId
+     * @return userInfo
      */
     User getUser(Integer userId);
 
     /**
      * Edit users
-     * @param user
-     * @return
+     * @param userId userId
+     * @param user user
+     * @return updated user
      */
-    User edit(UserDto user);
+    User edit(Integer id, UserDto userDto);
 
     /**
      * Delete users
      *
-     * @param userId
+     * @param userId userId
      */
     void deleteUser(Integer userId);
 }

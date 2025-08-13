@@ -15,10 +15,10 @@ public class GlobalExceptionHandlerAdvice {
     Logger log = LoggerFactory.getLogger(GlobalExceptionHandlerAdvice.class);
 
     @ExceptionHandler({Exception.class})    // 所有异常的统一处理
-    public ResponseMessage handlerException(Exception e, HttpServletRequest request, HttpServletResponse response){
+    public ResponseMessage<Void> handlerException(Exception e, HttpServletRequest request, HttpServletResponse response){
 
         // Recording Log
         log.error("统一异常：", e);
-        return new ResponseMessage(500,"error",null);
+        return new ResponseMessage<>(500,"error",null);
     }
 }

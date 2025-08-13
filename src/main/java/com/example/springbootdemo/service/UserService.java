@@ -26,20 +26,25 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser(Integer userId) {
-        return userRepository.findById(userId).orElseThrow(() ->{
-            throw new IllegalArgumentException("用户不存在，参数异常！");
-        });
+        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("用户不存在，参数异常！"));
     }
 
     @Override
-    public User edit(UserDto userDto) {
+    public User edit(Integer id, UserDto userDto) {
+        // ✔ 使用 CrudRepository 的 findById 方法
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
 
-        User user = new User();
+        // ✔ 更新字段
+        user.setUserName(userDto.getUserName());
+        user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
 
-        BeanUtils.copyProperties(userDto,user);
-
+        // ✔ save 仍然使用原始接口方法
         return userRepository.save(user);
     }
+
+
 
     @Override
     public void deleteUser(Integer userId) {

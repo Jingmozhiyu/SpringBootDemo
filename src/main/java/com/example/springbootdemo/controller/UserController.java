@@ -26,20 +26,23 @@ public class UserController {
 
     // Read
     @GetMapping("/{userId}")    // URL: localhost:8088/user/1
-    public ResponseMessage get(@PathVariable Integer userId){
+    public ResponseMessage<User> get(@PathVariable Integer userId){
         User newUser = userService.getUser(userId);
         return ResponseMessage.success(newUser);
     }
 
     // Update
-    @PutMapping
-    public ResponseMessage edit(@Validated @RequestBody UserDto user){
-        User newUser = userService.edit(user);
-        return ResponseMessage.success(newUser);
+    @PutMapping("/{userId}")
+    public ResponseMessage<User> edit(
+            @PathVariable Integer userId,
+            @Validated @RequestBody UserDto user) {
+        User updatedUser = userService.edit(userId, user);
+        return ResponseMessage.success(updatedUser);
     }
+
     // Delete
     @DeleteMapping("/{userId}")
-    public ResponseMessage delete(@PathVariable Integer userId){
+    public ResponseMessage<Void> delete(@PathVariable Integer userId){
         userService.deleteUser(userId);
         return ResponseMessage.success();
     }
